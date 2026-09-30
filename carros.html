@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriverGo - Carros</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f3f3;
+            color: #222;
+        }
+
+        header {
+            background: #db0505;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-usuario {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .info-usuario button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            background: white;
+            color: #1565c0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        main > h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .carros {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .carro,
+        .reserva,
+        .perfil {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.12);
+        }
+
+        .carro img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .carro h3 {
+            margin: 15px 0 8px;
+        }
+
+        .carro p {
+            color: #1565c0;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .carro label {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .carro button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 7px;
+            background: #1565c0;
+            color: white;
+        }
+
+        .reserva {
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .reserva h2,
+        .perfil h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .reserva-carro {
+            background: #f5f5f5;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid #1565c0;
+            border-radius: 8px;
+        }
+
+        .reserva-carro button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #db0505;
+            color: white;
+        }
+
+        .perfil {
+            display: none;
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .perfil label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .perfil button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #1565c0;
+            color: white;
+            margin-top: 5px;
+        }
+
+        .perfil .fechar {
+            background: #777;
+        }
+
+        @media (max-width: 800px) {
+            .carros {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <h1>DriverGo</h1>
+    </div>
+
+    <div class="info-usuario">
+        <span>Olá, <span id="nomeUsuario"></span>.</span>
+        <span>E-mail: <span id="emailUsuario"></span></span>
+
+        <button onclick="abrirPerfil()">Meu Perfil</button>
+        <button onclick="sair()">Sair</button>
+    </div>
+
+</header>
+
+
+<main>
+
+    <h2>Escolha seu carro</h2>
+
+    <div class="carros">
+
+        <div class="carro">
+
+            <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80">
+
+            <h3>BMW Série 3</h3>
+            <p>R$ 250 por dia</p>
+
+            <label>Quantidade de dias:</label>
+            <input type="number" id="diasBMW" min="1" value="1">
+
+            <button onclick="alugar('BMW Série 3',250,'diasBMW')">
+                Alugar
+            </button>
+
+        </div>
+
+
+        <div class="carro">
+
+            <img src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80">
+
+            <h3>Mercedes-Benz</h3>
+            <p>R$ 300 por dia</p>
+
+            <label>Quantidade de dias:</label>
+            <input type="number" id="diasMercedes" min="1" value="1">
+
+            <button onclick="alugar('Mercedes-Benz',300,'diasMercedes')">
+                Alugar
+            </button>
+
+        </div>
+
+
+        <div class="carro">
+
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80">
+
+            <h3>Porsche 911</h3>
+            <p>R$ 500 por dia</p>
+
+            <label>Quantidade de dias:</label>
+            <input type="number" id="diasPorsche" min="1" value="1">
+
+            <button onclick="alugar('Porsche 911',500,'diasPorsche')">
+                Alugar
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="reserva">
+
+        <h2>Meus carros alugados</h2>
+
+        <div id="resultado">
+            Nenhum carro alugado.
+        </div>
+
+    </div>
+
+
+    <div class="perfil" id="perfil">
+
+        <h2>Meu Perfil</h2>
+
+        <label>Nome:</label>
+        <input type="text" id="editarNome">
+
+        <label>E-mail:</label>
+        <input type="email" id="editarEmail">
+
+        <label>Senha:</label>
+        <input type="password" id="editarSenha">
+
+        <button onclick="salvarPerfil()">Salvar alterações</button>
+        <button class="fechar" onclick="fecharPerfil()">Fechar</button>
+
+    </div>
+
+</main>
+
+
+<script>
+
+let usuario = JSON.parse(localStorage.getItem("usuarioCadastrado"));
+
+document.getElementById("nomeUsuario").textContent = usuario.usuario;
+document.getElementById("emailUsuario").textContent = usuario.email;
+
+
+// RESERVAS
+
+function chave() {
+    return "reservas_" + usuario.email;
+}
+
+function alugar(carro, preco, campo) {
+
+    let dias = Number(document.getElementById(campo).value);
+
+    if (dias < 1) {
+        alert("Escolha pelo menos 1 dia.");
+        return;
+    }
+
+    let reservas = JSON.parse(localStorage.getItem(chave())) || [];
+
+    reservas.push({
+        carro: carro,
+        preco: preco,
+        dias: dias,
+        total: preco * dias
+    });
+
+    localStorage.setItem(chave(), JSON.stringify(reservas));
+
+    mostrarReservas();
+
+    alert("Carro alugado com sucesso!");
+}
+
+
+function mostrarReservas() {
+
+    let reservas = JSON.parse(localStorage.getItem(chave())) || [];
+    let resultado = document.getElementById("resultado");
+
+    if (!reservas.length) {
+        resultado.innerHTML = "Nenhum carro alugado.";
+        return;
+    }
+
+    resultado.innerHTML = reservas.map((r, i) => `
+        <div class="reserva-carro">
+            <h3>${r.carro}</h3>
+            <p>R$ ${r.preco} por dia</p>
+            <p>Quantidade de dias: <b>${r.dias}</b></p>
+            <p>Total: <b>R$ ${r.total}</b></p>
+
+            <button onclick="cancelar(${i})">
+                Cancelar aluguel
+            </button>
+        </div>
+    `).join("");
+}
+
+
+function cancelar(i) {
+
+    let reservas = JSON.parse(localStorage.getItem(chave())) || [];
+
+    reservas.splice(i, 1);
+
+    localStorage.setItem(chave(), JSON.stringify(reservas));
+
+    mostrarReservas();
+}
+
+
+// PERFIL
+
+function abrirPerfil() {
+
+    document.getElementById("perfil").style.display = "block";
+
+    document.getElementById("editarNome").value = usuario.usuario;
+    document.getElementById("editarEmail").value = usuario.email;
+    document.getElementById("editarSenha").value = usuario.senha;
+}
+
+
+function fecharPerfil() {
+    document.getElementById("perfil").style.display = "none";
+}
+
+
+function salvarPerfil() {
+
+    let novoNome = document.getElementById("editarNome").value;
+    let novoEmail = document.getElementById("editarEmail").value;
+    let novaSenha = document.getElementById("editarSenha").value;
+
+    if (!novoNome || !novoEmail || !novaSenha) {
+        alert("Preencha todos os campos.");
+        return;
+    }
+
+    usuario.usuario = novoNome;
+    usuario.email = novoEmail;
+    usuario.senha = novaSenha;
+
+    localStorage.setItem(
+        "usuarioCadastrado",
+        JSON.stringify(usuario)
+    );
+
+    document.getElementById("nomeUsuario").textContent = novoNome;
+    document.getElementById("emailUsuario").textContent = novoEmail;
+
+    alert("Perfil atualizado!");
+
+    fecharPerfil();
+}
+
+
+// SAIR
+
+function sair() {
+
+    if (!confirm("Deseja sair da conta?")) return;
+
+    localStorage.removeItem("usuarioCadastrado");
+
+    window.location.href = "index.html";
+}
+
+
+mostrarReservas();
+
+</script>
+
+</body>
+</html>g
